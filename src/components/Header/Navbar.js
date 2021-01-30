@@ -64,18 +64,20 @@ export default function Navbar() {
         <AppBar className={classes.navbar} position="static">
             <Toolbar>
                 <Typography variant="h6" className={classes.title}>
-                <IconButton edge="start" className={classes.logo} color="inherit" aria-label="menu" >
-                    <a href="/"><img className="logo" src={'./JOBER.svg'}/></a>
-                </IconButton>
+                    <Link to="/" component={NavLink}>
+                        <IconButton edge="start" className={classes.logo} color="inherit" aria-label="menu">
+                            <img className="logo" src={'./JOBER.svg'}/>
+                        </IconButton>
+                    </Link>
                 </Typography>
-                    <nav>
-                        <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
-                              to="/jobs">Jobs</Link>
-                        <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
-                              to="/companies">Companies</Link>
-                        <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
-                              to="/about">About</Link>
-                    </nav>
+                <nav>
+                    <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
+                          to="/jobs">Jobs</Link>
+                    <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
+                          to="/companies">Companies</Link>
+                    <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
+                          to="/about">About</Link>
+                </nav>
 
                 <Button component={NavLink} className={classes.loginButton} to="/login">Login</Button>
                 <Button variant="outlined" component={NavLink} className={classes.registerButton}
