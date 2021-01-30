@@ -10,38 +10,38 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 
 const useStyles = makeStyles((theme) => ({
     footer: {
-        marginTop: "100%",
+        // marginTop: "100%",
         padding: theme.spacing(6, 0),
         // padding: theme.spacing(3, 2),
         // marginTop: 'auto',
-        background: "#00d1ab",
+        background: "#0b2557",
         color: "white",
-        width: "100%",
         display: "flex",
-        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        textAlign: "center",
+
     },
 
 
 }));
 
-export default function Footer(props) {
+export default function Footer() {
     const classes = useStyles();
 
     return (
         <footer className={classes.footer}>
             <Container maxWidth="lg">
-                <IconButton className={classes.icons} color="inherit" aria-label="menu">
+                <IconButton className={classes.icons} color="inherit">
                     <FacebookIcon/>
                 </IconButton>
-                <IconButton className={classes.icons} color="inherit" aria-label="menu">
+                <IconButton className={classes.icons} color="inherit">
                     <InstagramIcon/>
                 </IconButton>
-                <IconButton className={classes.icons} color="inherit" aria-label="menu">
+                <IconButton className={classes.icons} color="inherit">
                     <LinkedInIcon/>
                 </IconButton>
-                <IconButton className={classes.icons} color="inherit" aria-label="menu">
+                <IconButton className={classes.icons} color="inherit">
                     <GitHubIcon/>
                 </IconButton>
                 <span>© David Bezprozvani @{new Date().getFullYear()}</span>
