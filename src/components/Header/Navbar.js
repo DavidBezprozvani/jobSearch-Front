@@ -5,6 +5,10 @@ import {NavLink} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     logo: {
         marginRight: theme.spacing(2),
+        '&:hover': {
+            textDecoration: "none",
+            background: "white",
+        }
     },
     title: {
         flexGrow: 1,
@@ -54,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
     },
 
 }));
+
+
+
 
 export default function Navbar() {
     const classes = useStyles();
