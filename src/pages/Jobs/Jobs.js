@@ -29,6 +29,11 @@ const useStyles = makeStyles(() => ({
 
     },
 
+    chip: {
+        background: "#4d576a",
+        color: "white",
+    },
+
     companyLogo: {
         width: "100px",
         height: "100px",
@@ -133,7 +138,7 @@ const Jobs = () => {
                                                 <div>
                                                     <Typography
                                                         color="textSecondary">Uploaded: {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
-                                                    <Chip label={post.type} color="default"/>
+                                                    <Chip label={post.type} className={classes.chip}/>
                                                 </div>
 
                                             </Paper>
