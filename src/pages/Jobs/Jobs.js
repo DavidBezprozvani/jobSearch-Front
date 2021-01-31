@@ -3,7 +3,9 @@ import {useEffect, useState} from 'react'
 import {fetchAllPosts} from "../../api/postApi";
 import moment from 'moment'
 import { makeStyles, Typography, List, Button, ListItemAvatar, Paper, Chip, Collapse } from "@material-ui/core";
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
+import Loader from "../../common/Loader";
+
 
 const useStyles = makeStyles(() => ({
 
@@ -88,52 +90,61 @@ const Jobs = () => {
     return (
 
         // TODO: isskaidyti posts.title.includes(junior/mid/senior) ir padaryti radio buttonus searche
+
+
         <>
-            <div className={classes.jobs}>
-                <Typography variant="h3">
-                    Total jobs: {posts.length}
-                </Typography>
+            {
+                isLoading ?
+                    <Loader/>
+                    :
+                    <div className={classes.jobs}>
+                        <Typography variant="h3">
+                            Total jobs: {posts.length}
+                        </Typography>
 
-                <List>
-                    {
-                        posts.map(post => (
-                                <>
-                                    <Paper className={classes.posts}>
-                                        <ListItemAvatar>
-                                            <img alt="logo" className={classes.companyLogo} src={post.logoUrl}/>
-                                        </ListItemAvatar>
+                        <List>
+                            {
+                                posts.map(post => (
+                                        <>
+                                            <Paper className={classes.posts}>
+                                                <ListItemAvatar>
+                                                    <img alt="logo" className={classes.companyLogo} src={post.logoUrl}/>
+                                                </ListItemAvatar>
 
-                                        <div>
-                                            <Typography variant="h6">{post.title}</Typography>
-                                            <Typography variant="h5">{post.companyName}</Typography>
-                                            <Typography variant="h7" color="textSecondary">{post.location}</Typography>
-                                            <div>
-                                            <Button className={classes.button}
-                                                onClick={() => setOpen(prevOpen => !prevOpen)}
-                                                variant="primary"
-                                            >
-                                                {open ? 'Hide Details' : 'View Details'}
-                                            </Button>
-                                            <Collapse in={open}>
                                                 <div>
-                                                    <ReactMarkdown source={post.description} />
+                                                    <Typography variant="h6">{post.title}</Typography>
+                                                    <Typography variant="h5">{post.companyName}</Typography>
+                                                    <Typography variant="h7"
+                                                                color="textSecondary">{post.location}</Typography>
+                                                    <div>
+                                                        <Button className={classes.button}
+                                                                onClick={() => setOpen(prevOpen => !prevOpen)}
+                                                                variant="primary"
+                                                        >
+                                                            {open ? 'Hide Details' : 'View Details'}
+                                                        </Button>
+                                                        <Collapse in={open}>
+                                                            <div>
+                                                                <ReactMarkdown source={post.description}/>
+                                                            </div>
+                                                        </Collapse>
+                                                    </div>
                                                 </div>
-                                            </Collapse>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <Typography color="textSecondary">Uploaded: {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
-                                            <Chip label={post.type} color="default"/>
-                                        </div>
+                                                <div>
+                                                    <Typography
+                                                        color="textSecondary">Uploaded: {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
+                                                    <Chip label={post.type} color="default"/>
+                                                </div>
 
-                                    </Paper>
+                                            </Paper>
 
-                                </>
-                            )
-                        )
-                    }
-                </List>
-            </div>
+                                        </>
+                                    )
+                                )
+                            }
+                        </List>
+                    </div>
+            }
         </>
 
     )

@@ -10,7 +10,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 
 const useStyles = makeStyles((theme) => ({
     footer: {
-        // marginTop: "100%",
+        marginTop: "50px",
         padding: theme.spacing(6, 0),
         // padding: theme.spacing(3, 2),
         // marginTop: 'auto',
