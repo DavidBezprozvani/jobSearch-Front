@@ -88,7 +88,7 @@ export default function Navbar() {
 
                 <Button component={NavLink} className={classes.loginButton} to="/login">Login</Button>
                 <Button variant="outlined" component={NavLink} className={classes.registerButton}
-                        to="/register">Register</Button>
+                        to="/registration">Register</Button>
             </Toolbar>
         </AppBar>
 

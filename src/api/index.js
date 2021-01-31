@@ -6,4 +6,5 @@ const HTTP = axios.create({
     baseURL: '/'
 })
 
+
 export {HTTP as default}
