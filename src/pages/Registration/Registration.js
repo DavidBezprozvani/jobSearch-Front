@@ -3,6 +3,7 @@ import {Button, TextField, Link, Grid, Typography, Container} from '@material-ui
 import {makeStyles} from '@material-ui/core/styles';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
+import {whenInput} from "web-vitals/dist/lib/whenInput";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,11 +20,35 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
+        display: 'flex',
+        flexDirection: "column",
+        padding: "20px 100px",
+
     },
+
+    field: {
+        padding: "20px 100px",
+        marginTop: "10px",
+        fontSize: "15px",
+        border: "0",
+        outline: "0",
+        borderBottom: "2px solid #3d69be",
+        '&:focus': {
+            boxShadow: "0 0 5px #3d69be",
+            padding: "20px 100px",
+            borderBottom: "1px solid #3d69be",
+            opacity: "0.9",
+        }
+    },
+
     submit: {
         margin: theme.spacing(3, 0, 2),
+        background: "#3d69be",
+        color: "white",
+        '&:hover': {
+            opacity: "0.9",
+            background: "#3d69be",
+        }
     },
 }));
 
@@ -45,55 +70,53 @@ export default function Registration() {
     });
 
     return (
-        <Formik>
-            <Form>
+        <Formik
+            initialValues={{
+                username: "",
+                password: "",
+                name: "",
+                surname: "",
+                email: "",
+            }}>
                 <Container component="main" maxWidth="xs">
                     <div className={classes.paper}>
                         <Typography component="h1" variant="h5">
                             Sign up
                         </Typography>
-                        <form className={classes.form} noValidate>
+                        <Form className={classes.form} noValidate>
                             <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        autoComplete="fname"
-                                        name="firstName"
-                                        required
-                                        fullWidth
-                                        id="firstName"
-                                        label="First Name"
+                                <Grid item xs={12} sm={3}>
+                                    <Field
+                                        className={classes.field}
+                                        placeholder="Enter your first name"
+                                        name="name"
+                                        autoComplete="name"
+                                        autoFocus
+                                    />
+                                    <Field
+                                        className={classes.field}
+                                        placeholder="Enter your last name"
+                                        name="surname"
+                                        autoComplete="surname"
                                         autoFocus
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="lastName"
-                                        label="Last Name"
-                                        name="lastName"
-                                        autoComplete="lname"
-                                    />
-                                </Grid>
                                 <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="email"
-                                        label="Email Address"
+                                    <Field
+                                        className={classes.field}
+                                        placeholder="Enter your email"
                                         name="email"
                                         autoComplete="email"
+                                        autoFocus
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
+                                    <Field
+                                        className={classes.field}
                                         name="password"
-                                        label="Password"
+                                        placeholder="Enter password"
                                         type="password"
                                         id="password"
-                                        autoComplete="current-password"
                                     />
                                 </Grid>
                             </Grid>
@@ -101,22 +124,20 @@ export default function Registration() {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                color="primary"
                                 className={classes.submit}
                             >
                                 Sign Up
                             </Button>
                             <Grid container justify="flex-end">
                                 <Grid item>
-                                    <Link to="/login" variant="body2">
+                                    <Link href="/login" variant="body2">
                                         Already have an account? Sign in
                                     </Link>
                                 </Grid>
                             </Grid>
-                        </form>
+                        </Form>
                     </div>
                 </Container>
-            </Form>
         </Formik>
     );
 }

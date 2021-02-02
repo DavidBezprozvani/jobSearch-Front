@@ -1,12 +1,11 @@
 import React from 'react';
-import {Button, TextField, FormControlLabel, Checkbox, Link, Grid, Typography, Container} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
-import {Formik, Form, ErrorMessage} from "formik";
+import {Button, FormControlLabel, Checkbox, Link, Grid, Typography, makeStyles} from '@material-ui/core';
+import {Formik, Form, ErrorMessage, Field} from "formik";
 import * as Yup from "yup"
 import {useHistory, useLocation} from "react-router-dom"
 import {useDispatch} from "react-redux";
 import {login} from "../../api/usersApi"
-import {setJwt, setUserData} from "../../store/userSlice";
+import {setJwt, setUserData} from "../../store/slices/userSlice";
 import Content from "../../components/Content/Content";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,28 +27,61 @@ const useStyles = makeStyles((theme) => ({
             background: "#3d69be",
         }
     },
+
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: "20px 100px",
+
+    },
+
+    field: {
+        padding: "20px 100px",
+        marginTop: "10px",
+        fontSize: "15px",
+        textAlign: "left",
+        border: "0",
+        outline: "0",
+        borderBottom: "2px solid #3d69be",
+        '&:focus': {
+            boxShadow: "0 0 5px #3d69be",
+            padding: "20px 100px",
+            borderBottom: "1px solid #3d69be",
+            opacity: "0.9",
+
+        }
+    }
 }));
 
 const Login = () => {
 
-    // const dispatch = useDispatch()
-    //
-    //
-    // const postLogin = (loginData, {setSubmitting}) => {
-    //     setSubmitting(true)
-    //
-    //     login(loginData)
-    //         .then(({data, headers: {authorization}}) => {
-    //             dispatch(setUserData(data))
-    //             dispatch(setJwt(authorization))
-    //
-    //         })
-    //         .finally(() => setSubmitting(false))
-    //
-    //
-    // }
-
     const classes = useStyles();
+    const history = useHistory()
+    const location = useLocation();
+    const dispatch = useDispatch()
+
+    const { from } = location.state || {
+        from: {
+            pathname: '/'
+        }
+    }
+
+    const postLogin = (loginData, {setSubmitting}) => {
+        setSubmitting(true)
+
+        login(loginData)
+            .then(({data, headers: {authorization}}) => {
+                dispatch(setUserData(data))
+                dispatch(setJwt(authorization))
+
+                history.push(from)
+            })
+            .finally(() => setSubmitting(false))
+
+    }
+
+
 
     const validationSchema = Yup.object({
         username: Yup
@@ -66,23 +98,21 @@ const Login = () => {
         <Formik
             initialValues={{
                 username: "",
-                password: ""
+                password: "",
+                // validationSchema: {validationSchema},
             }}
-            // onSubmit={postLogin}
+            onSubmit={postLogin}
         >
-            {/*{(props) => (*/}
+            {(props) => (
 
             <>
-                <Form>
-                    <Container component="main" maxWidth="xs">
+                    {/*<Container component="main" maxWidth="xs">*/}
                         <div className={classes.paper}>
                             <Typography component="h1" variant="h5">Sign in</Typography>
-                            <form className={classes.form}>
-                                <TextField
-                                    margin="normal"
-                                    // required
-                                    fullWidth
-                                    id="username"
+                            <Form className={classes.form}>
+                                <Field
+                                    className={classes.field}
+                                    placeholder="Please enter username"
                                     label="Username"
                                     name="username"
                                     autoComplete="username"
@@ -91,12 +121,11 @@ const Login = () => {
                                 <ErrorMessage name="username"
                                               className="form-text text-danger"
                                               component="small"/>
-                                <TextField
-                                    margin="normal"
-                                    // required
-                                    fullWidth
+                                <Field
+                                    className={classes.field}
                                     name="password"
                                     label="Password"
+                                    placeholder="Please enter password"
                                     type="password"
                                     id="password"
                                 />
@@ -112,7 +141,7 @@ const Login = () => {
                                     fullWidth
                                     variant="contained"
                                     className={classes.submit}
-                                    // disabled={props.isSubmitting}
+                                    disabled={props.isSubmitting}
                                 >
                                     Sign In
                                 </Button>
@@ -128,12 +157,11 @@ const Login = () => {
                                         </Link>
                                     </Grid>
                                 </Grid>
-                            </form>
+                            </Form>
                         </div>
-                    </Container>
-                </Form>
+                    {/*</Container>*/}
             </>
-            {/*)}*/}
+            )}
         </Formik>
 
     );
