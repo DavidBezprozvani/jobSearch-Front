@@ -2,7 +2,17 @@ import React from 'react';
 import {useEffect, useState} from 'react'
 import {fetchAllPosts} from "../../api/postApi";
 import moment from 'moment'
-import { makeStyles, Typography, List, Button, ListItemAvatar, Paper, Chip, Collapse } from "@material-ui/core";
+import {
+    makeStyles,
+    Typography,
+    List,
+    Button,
+    ListItemAvatar,
+    Paper,
+    Chip,
+    Collapse,
+    Container
+} from "@material-ui/core";
 import ReactMarkdown from 'react-markdown';
 import Loader from "../../common/Loader";
 
@@ -11,12 +21,12 @@ const useStyles = makeStyles(() => ({
 
     posts: {
 
-        maxWidth: "50%",
+        // maxWidth: "70%",
         margin: "10px 20px",
         padding: "20px 20px",
-        alignContent: "space-between",
-        alignItems: "space-between",
-        justifyContent: "center",
+        // alignContent: "space-between",
+        // alignItems: "space-between",
+        // justifyContent: "center",
         display: "flex",
 
 
@@ -24,14 +34,15 @@ const useStyles = makeStyles(() => ({
     jobs: {
         marginTop: "40px",
         display: "list-item",
-        // alignContent: "space-between",
-        // alignItems: "space-between",
+        alignContent: "space-between",
+        alignItems: "space-between",
 
     },
 
     chip: {
         background: "#4d576a",
         color: "white",
+        marginTop: "5px"
     },
 
     companyLogo: {
@@ -43,7 +54,7 @@ const useStyles = makeStyles(() => ({
 
     button: {
         background: "#3d69be",
-        marginTop: "5px",
+        margin: "10px 0",
         color: "white",
         fontSize: "14px",
         borderRadius: "15px",
@@ -64,7 +75,7 @@ const Jobs = () => {
     const classes = useStyles();
     const [posts, setPosts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState([])
 
 
     useEffect(() => {
@@ -95,14 +106,13 @@ const Jobs = () => {
     return (
 
         // TODO: isskaidyti posts.title.includes(junior/mid/senior) ir padaryti radio buttonus searche
-
-
+        // TODO: padaryti, kad logo imtu is company objekto, o ne is post
         <>
             {
                 isLoading ?
                     <Loader/>
                     :
-                    <div className={classes.jobs}>
+                    <Container className={classes.jobs}>
                         <Typography variant="h3">
                             Total jobs: {posts.length}
                         </Typography>
@@ -123,14 +133,20 @@ const Jobs = () => {
                                                                 color="textSecondary">{post.location}</Typography>
                                                     <div>
                                                         <Button className={classes.button}
-                                                                onClick={() => setOpen(prevOpen => !prevOpen)}
+                                                                onClick={() => {
+                                                                    if (open.includes(post.id)) {
+                                                                        setOpen(open.filter(id => id !== post.id))
+                                                                    } else {
+                                                                        setOpen([...open, post.id])
+                                                                    }
+                                                                }}
                                                                 variant="primary"
                                                         >
-                                                            {open ? 'Hide Details' : 'View Details'}
+                                                            {open.includes(post.id) ? 'Hide Details' : 'View Details'}
                                                         </Button>
-                                                        <Collapse in={open}>
+                                                        <Collapse in={open.includes(post.id)}>
                                                             <div>
-                                                                <ReactMarkdown source={post.description}/>
+                                                                <ReactMarkdown allowDangerousHtml source={post.summary}/>
                                                             </div>
                                                         </Collapse>
                                                     </div>
@@ -140,15 +156,13 @@ const Jobs = () => {
                                                         color="textSecondary">Uploaded: {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
                                                     <Chip label={post.type} className={classes.chip}/>
                                                 </div>
-
                                             </Paper>
-
                                         </>
                                     )
                                 )
                             }
                         </List>
-                    </div>
+                    </Container>
             }
         </>
 
