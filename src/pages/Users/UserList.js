@@ -20,16 +20,17 @@ const useStyles = makeStyles(() => ({
     },
 
     button: {
-        background: "#3d69be",
-        color: "white",
+        background: "white",
+        color: "#3d69be",
         fontSize: "10px",
         borderRadius: "10px",
+        border: "0.1px",
         borderStyle: "solid",
-        paddingLeft: "10px",
-        paddingRight: "10px",
+        paddingLeft: "8px",
+        paddingRight: "8px",
         '&:hover': {
             opacity: "0.9",
-            background: "#3d69be",
+            background: "white",
         }
     }
 
@@ -58,6 +59,7 @@ const UserList = () => {
         })
     }
 
+    // TODO: add remove user button, add avatars to DB
 
     return (
 

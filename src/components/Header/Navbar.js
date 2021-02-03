@@ -1,6 +1,9 @@
 import React from 'react';
 import {AppBar, makeStyles, Toolbar, Typography, IconButton, Link, Button} from '@material-ui/core';
 import {NavLink} from "react-router-dom";
+import {removeJwt, removeUserData} from "../../store/slices/userSlice";
+import useUser from "../../hooks/useUser";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     logo: {
@@ -64,6 +67,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
     const classes = useStyles();
+    const user = useUser()
+    const dispatch = useDispatch()
+
+    const logout = () => {
+        dispatch(removeJwt())
+        dispatch(removeUserData())
+    }
 
 
     return (
@@ -82,15 +92,26 @@ export default function Navbar() {
                           to="/jobs">Jobs</Link>
                     <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
                           to="/companies">Companies</Link>
-                    <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
-                          to="/users">Users</Link>
+                    {
+                        user?.roles.includes('ADMIN') && (
+                            <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
+                                  to="/users">Users</Link>
+                        )
+                    }
                     <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
                           to="/about">About</Link>
+                    {
+                        !!user ? (
+                                <Button className={classes.loginButton} onClick={logout}>Log Out</Button>
+                        ) : (
+                            <>
+                                <Button component={NavLink} className={classes.loginButton} to="/login">Login</Button>
+                                <Button variant="outlined" component={NavLink} className={classes.registerButton}
+                                        to="/registration">Register</Button>
+                            </>
+                        )
+                    }
                 </nav>
-
-                <Button component={NavLink} className={classes.loginButton} to="/login">Login</Button>
-                <Button variant="outlined" component={NavLink} className={classes.registerButton}
-                        to="/registration">Register</Button>
             </Toolbar>
         </AppBar>
 

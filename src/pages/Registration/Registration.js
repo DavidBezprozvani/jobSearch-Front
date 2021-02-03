@@ -1,11 +1,10 @@
 import React from 'react';
-import {Button, TextField, Link, Grid, Typography, Container} from '@material-ui/core';
+import {Button, Link, Typography, TextField} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
-import {useHistory, useLocation} from "react-router-dom"
+import {useHistory} from "react-router-dom"
 import {saveUser} from "../../api/usersApi"
-import wrapActionCreators from "react-redux/lib/utils/wrapActionCreators";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +64,7 @@ export default function Registration() {
         formikHelpers.setSubmitting(true)
         saveUser(formValues)
             .then(res => {
-                history.push("/login");
+                history.push("/");
             })
             .finally(() => {
                 formikHelpers.setSubmitting(false)

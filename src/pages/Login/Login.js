@@ -6,7 +6,6 @@ import {useHistory, useLocation} from "react-router-dom"
 import {useDispatch} from "react-redux";
 import {login} from "../../api/usersApi"
 import {setJwt, setUserData} from "../../store/slices/userSlice";
-import Content from "../../components/Content/Content";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -67,7 +66,7 @@ const Login = () => {
         }
     }
 
-    const postLogin = (loginData, {setSubmitting}) => {
+    const handleLogin = (loginData, {setSubmitting}) => {
         setSubmitting(true)
 
         login(loginData)
@@ -101,12 +100,11 @@ const Login = () => {
                 password: "",
                 // validationSchema: {validationSchema},
             }}
-            onSubmit={postLogin}
+            onSubmit={handleLogin}
         >
             {(props) => (
 
             <>
-                    {/*<Container component="main" maxWidth="xs">*/}
                         <div className={classes.paper}>
                             <Typography component="h1" variant="h5">Sign in</Typography>
                             <Form className={classes.form}>
@@ -159,7 +157,6 @@ const Login = () => {
                                 </Grid>
                             </Form>
                         </div>
-                    {/*</Container>*/}
             </>
             )}
         </Formik>

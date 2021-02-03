@@ -7,6 +7,7 @@ import Jobs from "../../pages/Jobs/Jobs";
 import NotFound from "../../pages/NotFound/NotFound";
 import Registration from "../../pages/Registration/Registration";
 import UserList from "../../pages/Users/UserList";
+import CompanyList from "../../pages/Company/CompanyList";
 
 
 export default () => (
@@ -23,6 +24,9 @@ export default () => (
             </Route>
             <Route path="/users">
                 <UserList/>
+            </Route>
+            <Route path="/companies">
+                <CompanyList/>
             </Route>
             <Route path="/registration">
                 <Registration/>
