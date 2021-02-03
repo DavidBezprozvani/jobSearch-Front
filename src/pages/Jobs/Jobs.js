@@ -20,8 +20,6 @@ import Loader from "../../common/Loader";
 const useStyles = makeStyles(() => ({
 
     posts: {
-
-        // maxWidth: "70%",
         margin: "10px 20px",
         padding: "20px 20px",
         // alignContent: "space-between",
@@ -140,13 +138,12 @@ const Jobs = () => {
                                                                         setOpen([...open, post.id])
                                                                     }
                                                                 }}
-                                                                variant="primary"
                                                         >
                                                             {open.includes(post.id) ? 'Hide Details' : 'View Details'}
                                                         </Button>
                                                         <Collapse in={open.includes(post.id)}>
                                                             <div>
-                                                                <ReactMarkdown allowDangerousHtml source={post.summary}/>
+                                                                <Typography variant="h7">{post.summary}</Typography>
                                                             </div>
                                                         </Collapse>
                                                     </div>

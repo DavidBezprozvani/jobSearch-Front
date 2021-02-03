@@ -3,7 +3,9 @@ import {Button, TextField, Link, Grid, Typography, Container} from '@material-ui
 import {makeStyles} from '@material-ui/core/styles';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
-import {whenInput} from "web-vitals/dist/lib/whenInput";
+import {useHistory, useLocation} from "react-router-dom"
+import {saveUser} from "../../api/usersApi"
+import wrapActionCreators from "react-redux/lib/utils/wrapActionCreators";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -13,15 +15,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
+        flexFlow: "row wrap",
         alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
     },
     form: {
         display: 'flex',
         flexDirection: "column",
+        flexFlow: "row wrap",
         padding: "20px 100px",
 
     },
@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
         padding: "20px 100px",
         marginTop: "10px",
         fontSize: "15px",
+        flexDirection: "column",
+
         border: "0",
         outline: "0",
         borderBottom: "2px solid #3d69be",
@@ -53,7 +55,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Registration() {
-    const classes = useStyles();
+    const classes = useStyles()
+    const history = useHistory()
+
+
+
+
+    const handleOnSubmit = (formValues, formikHelpers) => {
+        formikHelpers.setSubmitting(true)
+        saveUser(formValues)
+            .then(res => {
+                history.push("/login");
+            })
+            .finally(() => {
+                formikHelpers.setSubmitting(false)
+            })
+    }
+
 
     const validationSchema = Yup.object({
         username: Yup
@@ -77,15 +95,22 @@ export default function Registration() {
                 name: "",
                 surname: "",
                 email: "",
-            }}>
-                <Container component="main" maxWidth="xs">
-                    <div className={classes.paper}>
+            }}
+            onSubmit={handleOnSubmit}
+        >
+            {(props) => (
+                 <div className={classes.paper}>
                         <Typography component="h1" variant="h5">
                             Sign up
                         </Typography>
                         <Form className={classes.form} noValidate>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={3}>
+                                    <Field
+                                        className={classes.field}
+                                        placeholder="Enter your username"
+                                        name="username"
+                                        autoComplete="username"
+                                        autoFocus
+                                    />
                                     <Field
                                         className={classes.field}
                                         placeholder="Enter your first name"
@@ -100,8 +125,6 @@ export default function Registration() {
                                         autoComplete="surname"
                                         autoFocus
                                     />
-                                </Grid>
-                                <Grid item xs={12}>
                                     <Field
                                         className={classes.field}
                                         placeholder="Enter your email"
@@ -109,8 +132,6 @@ export default function Registration() {
                                         autoComplete="email"
                                         autoFocus
                                     />
-                                </Grid>
-                                <Grid item xs={12}>
                                     <Field
                                         className={classes.field}
                                         name="password"
@@ -118,26 +139,21 @@ export default function Registration() {
                                         type="password"
                                         id="password"
                                     />
-                                </Grid>
-                            </Grid>
                             <Button
                                 type="submit"
-                                fullWidth
-                                variant="contained"
+                                // fullWidth
                                 className={classes.submit}
+                                disabled={props.isSubmitting}
                             >
                                 Sign Up
                             </Button>
-                            <Grid container justify="flex-end">
-                                <Grid item>
-                                    <Link href="/login" variant="body2">
+
+                                    <Link to="/login" variant="body2">
                                         Already have an account? Sign in
                                     </Link>
-                                </Grid>
-                            </Grid>
                         </Form>
                     </div>
-                </Container>
+            )}
         </Formik>
     );
 }

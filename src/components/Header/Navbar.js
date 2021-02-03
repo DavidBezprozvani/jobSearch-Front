@@ -83,6 +83,8 @@ export default function Navbar() {
                     <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
                           to="/companies">Companies</Link>
                     <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
+                          to="/users">Users</Link>
+                    <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
                           to="/about">About</Link>
                 </nav>
 
