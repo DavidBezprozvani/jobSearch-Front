@@ -73,7 +73,7 @@ const UserList = () => {
                         {
                             users.map(user => (
                                     <>
-                                        <ListItem className={classes.listItems}>
+                                        <ListItem className={classes.listItems} key={user.id}>
                                                 <ListItemAvatar>
                                                     <Avatar alt={user.username} src={user.profilePictureUrl}/>
                                                 </ListItemAvatar>
@@ -82,19 +82,19 @@ const UserList = () => {
                                                     <p variant="h8">Username: {user.username}</p>
                                                         <Button className={classes.button}
                                                                 onClick={() => {
-                                                                    if (open.includes(user.username)) {
-                                                                        setOpen(open.filter(id => id !== user.username))
+                                                                    if (open.includes(user.id)) {
+                                                                        setOpen(open.filter(id => id !== user.id))
                                                                     } else {
-                                                                        setOpen([...open, user.username])
+                                                                        setOpen([...open, user.id])
                                                                     }
                                                                 }}
                                                         >
-                                                            {open.includes(user.username) ? 'Hide Details' : 'View Details'}
+                                                            {open.includes(user.id) ? 'Hide Details' : 'View Details'}
                                                         </Button>
-                                                        <Collapse in={open.includes(user.username)}>
-                                                            <p variant="h8">Name: {user.name}</p>
-                                                            <p variant="h8">Surname: {user.surname}</p>
-                                                            <p variant="h8">Email:{user.email}</p>
+                                                        <Collapse in={open.includes(user.id)}>
+                                                            <p>Name: {user.name}</p>
+                                                            <p>Surname: {user.surname}</p>
+                                                            <p>Email:{user.email}</p>
                                                         </Collapse>
                                                 </ListItemText>
                                         </ListItem>

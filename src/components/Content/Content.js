@@ -8,6 +8,9 @@ import NotFound from "../../pages/NotFound/NotFound";
 import Registration from "../../pages/Registration/Registration";
 import UserList from "../../pages/Users/UserList";
 import CompanyList from "../../pages/Company/CompanyList";
+import JobForm from "../../pages/Jobs/JobForm";
+import SingleJob from "../../pages/Jobs/SingleJob";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 export default () => (
@@ -16,23 +19,29 @@ export default () => (
             <Route exact path="/">
                 <LandingPage/>
             </Route>
-            <Route path="/jobs">
+            <Route exact path="/jobs">
                 <Jobs/>
             </Route>
-            <Route path="/about">
-                <About/>
+            <PrivateRoute path="/jobs/new" roles={['ADMIN', 'USER']}>
+                <JobForm/>
+            </PrivateRoute>
+            <Route path="/jobs/:id">
+                <SingleJob/>
             </Route>
-            <Route path="/users">
+            <PrivateRoute path="/users" roles={['ADMIN']}>
                 <UserList/>
-            </Route>
+            </PrivateRoute>
             <Route path="/companies">
                 <CompanyList/>
             </Route>
             <Route path="/registration">
                 <Registration/>
             </Route>
-            <Route>
+            <Route path="/login">
                 <Login/>
+            </Route>
+            <Route path="/about">
+                <About/>
             </Route>
             <Route path="*">
                 <NotFound/>

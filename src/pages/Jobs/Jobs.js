@@ -1,7 +1,9 @@
 import React from 'react';
 import {useEffect, useState} from 'react'
-import {fetchAllPosts} from "../../api/postApi";
+import {fetchAllPosts, deletePost} from "../../api/postApi";
+import {Link} from "react-router-dom";
 import moment from 'moment'
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import {
     makeStyles,
     Typography,
@@ -13,13 +15,14 @@ import {
     Collapse,
     Container
 } from "@material-ui/core";
-import ReactMarkdown from 'react-markdown';
 import Loader from "../../common/Loader";
+import useUser from "../../hooks/useUser";
 
 
 const useStyles = makeStyles(() => ({
 
     posts: {
+        textDecoration: "none",
         margin: "10px 20px",
         padding: "20px 20px",
         // alignContent: "space-between",
@@ -63,6 +66,14 @@ const useStyles = makeStyles(() => ({
             opacity: "0.9",
             background: "#3d69be",
         }
+    },
+
+    delete: {
+        float: "right",
+        '&:hover': {
+            opacity: "0.5",
+            cursor: "pointer",
+        }
     }
 }));
 
@@ -74,6 +85,7 @@ const Jobs = () => {
     const [posts, setPosts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [open, setOpen] = useState([])
+    const user = useUser()
 
 
     useEffect(() => {
@@ -94,7 +106,6 @@ const Jobs = () => {
     const handleDeleteClick = (id) => {
         setIsLoading(true);
 
-        // eslint-disable-next-line no-undef
         deletePost(id)
             .then(() => {
                 loadAllJobs();
@@ -110,6 +121,7 @@ const Jobs = () => {
                 isLoading ?
                     <Loader/>
                     :
+
                     <Container className={classes.jobs}>
                         <Typography variant="h3">
                             Total jobs: {posts.length}
@@ -118,16 +130,18 @@ const Jobs = () => {
                         <List>
                             {
                                 posts.map(post => (
-                                        <>
-                                            <Paper className={classes.posts}>
+
+                                            <Paper className={classes.posts} key={post.id}>
                                                 <ListItemAvatar>
                                                     <img alt="logo" className={classes.companyLogo} src={post.logoUrl}/>
                                                 </ListItemAvatar>
 
                                                 <div>
+                                                    <Link to={`/jobs/${post.id}`}>
                                                     <Typography variant="h6">{post.title}</Typography>
+                                                    </Link>
                                                     <Typography variant="h5">{post.companyName}</Typography>
-                                                    <Typography variant="h7"
+                                                    <Typography variant="h6"
                                                                 color="textSecondary">{post.location}</Typography>
                                                     <div>
                                                         <Button className={classes.button}
@@ -143,24 +157,34 @@ const Jobs = () => {
                                                         </Button>
                                                         <Collapse in={open.includes(post.id)}>
                                                             <div>
-                                                                <Typography variant="h7">{post.summary}</Typography>
+                                                                <Typography variant="h6">{post.summary}</Typography>
                                                             </div>
                                                         </Collapse>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <Typography
-                                                        color="textSecondary">Uploaded: {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
+                                                    {
+                                                        user?.roles.includes('ADMIN') && (
+                                                            <HighlightOffIcon color="error" className={classes.delete}
+                                                                              onClick={() => handleDeleteClick(post.id)}/>
+                                                        )
+                                                    }
+                                                    <Typography color="textSecondary">Uploaded: {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
                                                     <Chip label={post.type} className={classes.chip}/>
                                                 </div>
                                             </Paper>
-                                        </>
+
                                     )
                                 )
                             }
                         </List>
                     </Container>
             }
+
+            <Link to="/jobs/new">
+                <Button type="button">Create product</Button>
+            </Link>
+
         </>
 
     )

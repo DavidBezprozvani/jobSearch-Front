@@ -57,14 +57,8 @@ const Login = () => {
 
     const classes = useStyles();
     const history = useHistory()
-    const location = useLocation();
     const dispatch = useDispatch()
 
-    const { from } = location.state || {
-        from: {
-            pathname: '/'
-        }
-    }
 
     const handleLogin = (loginData, {setSubmitting}) => {
         setSubmitting(true)
@@ -74,9 +68,9 @@ const Login = () => {
                 dispatch(setUserData(data))
                 dispatch(setJwt(authorization))
 
-                history.push(from)
+                history.push("/")
             })
-            .finally(() => setSubmitting(false))
+            .catch(() => setSubmitting(false))
 
     }
 
