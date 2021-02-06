@@ -1,0 +1,8 @@
+{
+  "home": {
+    "welcome": "Welcome to JOBER!"
+  },
+  "jobs": {
+    "totalJobs": "There are {{total}} positions waiting to filled!"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "home": {
+    "welcome": "Sveiki atvykę į JOBER!"
+  },
+  "jobs": {
+    "totalJobs": "Galite rinktis iš {{total}} darbo pasiūlymų!"
+  }
+}
