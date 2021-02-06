@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, FormControlLabel, Checkbox, Link, Grid, Typography, makeStyles, Container} from '@material-ui/core';
 import {Formik, Form, ErrorMessage, Field} from "formik";
 import * as Yup from "yup"
-import {useHistory, useLocation} from "react-router-dom"
+import {useHistory} from "react-router-dom"
 import {useDispatch} from "react-redux";
 import {login} from "../../api/usersApi"
 import {setJwt, setUserData} from "../../store/slices/userSlice";
@@ -113,7 +113,6 @@ const Login = () => {
                                 <Field
                                     className={classes.field}
                                     placeholder="Please enter username"
-                                    label="Username"
                                     name="username"
                                     autoComplete="username"
                                     autoFocus

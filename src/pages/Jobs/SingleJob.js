@@ -4,10 +4,9 @@ import {makeStyles} from '@material-ui/core/styles';
 import {CardContent, Button, Typography, Card} from '@material-ui/core';
 import {useEffect, useState} from "react";
 import {fetchSinglePost} from "../../api/postApi";
-import Loader from "../../common/Loader";
 
 
-export default () => {
+const SingleJob = () => {
 
     const useStyles = makeStyles({
         root: {
@@ -31,7 +30,6 @@ export default () => {
 
     const {id} = useParams();
     const history = useHistory();
-    // const {isLoading, setIsLoading} = useState(true)
     const [post, setPost] = useState(null);
     const classes = useStyles();
 
@@ -46,9 +44,6 @@ export default () => {
             .then(response => {
                 setPost(response.data);
             })
-            .finally(() => {
-                // setIsLoading(false);
-            });
     }, [])
 
 
@@ -75,4 +70,6 @@ export default () => {
         </>
     )
 }
+
+export default SingleJob
 

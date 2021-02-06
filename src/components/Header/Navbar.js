@@ -83,7 +83,7 @@ export default function Navbar() {
                 <Typography variant="h6" className={classes.title}>
                     <Link to="/" component={NavLink}>
                         <IconButton edge="start" className={classes.logo} color="inherit" aria-label="menu">
-                            <img className="logo" src={'./JOBER.svg'}/>
+                            <img alt="navLogo" className="logo" src={'./JOBER.svg'}/>
                         </IconButton>
                     </Link>
                 </Typography>

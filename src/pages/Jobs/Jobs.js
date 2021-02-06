@@ -4,6 +4,7 @@ import {fetchAllPosts, deletePost} from "../../api/postApi";
 import {Link} from "react-router-dom";
 import moment from 'moment'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import EditIcon from '@material-ui/icons/Edit';
 import {
     makeStyles,
     Typography,
@@ -76,7 +77,7 @@ const useStyles = makeStyles(() => ({
         }
     },
 
-    delete: {
+    icon: {
         float: "right",
         '&:hover': {
             opacity: "0.8",
@@ -105,7 +106,6 @@ const Jobs = () => {
         setIsLoading(true);
         fetchAllPosts().then(response => {
             setPosts(response.data)
-            console.log(posts)
         }).finally(() => {
             setIsLoading(false)
         })
@@ -120,10 +120,10 @@ const Jobs = () => {
             })
     }
 
+
     return (
 
         // TODO: isskaidyti posts.title.includes(junior/mid/senior) ir padaryti radio buttonus searche
-        // TODO: padaryti, kad logo imtu is company objekto, o ne is post
         <>
             {
                 isLoading ?
@@ -175,10 +175,23 @@ const Jobs = () => {
                                                 <div>
                                                     {
                                                         user?.roles.includes('ADMIN') && (
-                                                            <HighlightOffIcon color="error" className={classes.delete}
+                                                            <HighlightOffIcon color="error" className={classes.icon}
                                                                               onClick={() => handleDeleteClick(post.id)}/>
+
                                                         )
+
                                                     }
+                                                    {
+                                                        user?.roles.includes('ADMIN') && (
+                                                            <EditIcon color="primary" className={classes.icon}
+                                                                              // onClick={() => handleEditClick(post.id)}
+                                                            />
+
+                                                        )
+
+                                                    }
+
+
                                                     <Typography color="textSecondary">Uploaded: {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
                                                     <Chip label={post.type} className={classes.chip}/>
                                                 </div>

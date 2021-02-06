@@ -14,7 +14,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import CompanyForm from "../../pages/Company/CompanyForm";
 
 
-export default () => (
+const Content = () => (
     <main className="container">
         <Switch>
             <Route exact path="/">
@@ -53,3 +53,4 @@ export default () => (
         </Switch>
     </main>
 )
+export default Content

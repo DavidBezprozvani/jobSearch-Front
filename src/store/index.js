@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit"
-import user, {loadUserFromStorage} from "./slices/userSlice"
+import user, {loadUserFromStorage, subscribeToUserChanges} from "./slices/userSlice"
 
 
 export const createStore = (initialState) => {
@@ -10,6 +10,7 @@ export const createStore = (initialState) => {
         preloadedState: {user: loadUserFromStorage(), ...initialState}
     })
 
+    subscribeToUserChanges(store);
     return store
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, TextField, Container, TextareaAutosize, Typography} from '@material-ui/core';
+import {Button,  Container, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import {Formik, Form, Field, ErrorMessage} from "formik";
+import {Formik, Form, Field} from "formik";
 import {useHistory} from "react-router-dom"
 import {addCompany} from "../../api/companyApi"
 

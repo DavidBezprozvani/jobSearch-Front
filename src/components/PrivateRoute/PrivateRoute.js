@@ -5,7 +5,7 @@ import _ from "lodash"
 
 
 
-export default ({ children, roles, ...props }) => {
+const PrivateRoute = ({ children, roles, ...props }) => {
 
     const user = useUser()
     const location = useLocation()
@@ -29,3 +29,5 @@ export default ({ children, roles, ...props }) => {
         </Route>
     )
 }
+
+export default PrivateRoute

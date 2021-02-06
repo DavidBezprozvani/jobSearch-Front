@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Divider,
     List,
-    ListItemAvatar,
     makeStyles,
     ListItem,
-    Typography,
     Container, Button,
 } from "@material-ui/core";
 import Loader from "../../common/Loader";
@@ -82,16 +79,17 @@ const CompanyList = () => {
     const [companies, setCompanies] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
+
     useEffect(() => {
         loadAllCompanies();
     }, [])
+
 
 
     const loadAllCompanies = () => {
         setIsLoading(true);
         fetchAllCompanies().then(response => {
             setCompanies(response.data)
-            console.log(companies)
         }).finally(() => {
             setIsLoading(false)
         })
@@ -112,18 +110,14 @@ const CompanyList = () => {
                         <Link to="/companies/new" className={classes.link}>
                             <Button type="button" className={classes.button}>BECOME OUR PARTNER</Button>
                         </Link>
-                        {/*<Typography variant="h3"> Our Partners</Typography>*/}
                         <List className={classes.list}>
                             {
                                 companies.map(company => (
                                         <>
-                                            <div className={classes.listItems}>
+                                            <div className={classes.listItems} key={company.id}>
                                                 <ListItem>
-                                                    <ListItemAvatar>
-                                                        <img className={classes.companyLogo} src={company.logoUrl}/>
-                                                    </ListItemAvatar>
+                                                        <img alt="logo" className={classes.companyLogo} src={company.logoUrl}/>
                                                 </ListItem>
-                                                <Divider variant="inset" component="li"/>
                                             </div>
                                         </>
                                     )

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Container, Link, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import {Formik, Form, Field, ErrorMessage} from "formik";
+import {Formik, Form, Field} from "formik";
 import * as Yup from "yup";
 import {useHistory} from "react-router-dom"
 import {saveUser} from "../../api/usersApi"
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Registration() {
+const Registration = () => {
     const classes = useStyles()
     const history = useHistory()
 
@@ -157,3 +157,5 @@ export default function Registration() {
         </Formik>
     );
 }
+
+export default Registration
