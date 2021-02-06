@@ -4,6 +4,8 @@ import {NavLink} from "react-router-dom";
 import {removeJwt, removeUserData} from "../../store/slices/userSlice";
 import useUser from "../../hooks/useUser";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import LangSwitcher from "./LangSwitcher";
 
 const useStyles = makeStyles((theme) => ({
     logo: {
@@ -63,8 +65,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
 export default function Navbar() {
     const classes = useStyles();
     const user = useUser()
@@ -100,6 +100,7 @@ export default function Navbar() {
                     }
                     <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
                           to="/about">About</Link>
+                    <LangSwitcher/>
                     {
                         !!user ? (
                                 <Button className={classes.loginButton} onClick={logout}>Log Out</Button>

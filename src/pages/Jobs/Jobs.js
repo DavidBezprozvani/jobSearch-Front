@@ -18,6 +18,7 @@ import {
 } from "@material-ui/core";
 import Loader from "../../common/Loader";
 import useUser from "../../hooks/useUser";
+import { useTranslation } from "react-i18next";
 
 
 const useStyles = makeStyles(() => ({
@@ -95,6 +96,7 @@ const Jobs = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [open, setOpen] = useState([])
     const user = useUser()
+    const { t } = useTranslation('jobs')
 
 
     useEffect(() => {
@@ -132,7 +134,7 @@ const Jobs = () => {
 
                     <Container className={classes.jobs}>
                         <Typography variant="h3">
-                            Total jobs: {posts.length}
+                            { t ('totalJobs', { total: posts.length })}
                         </Typography>
                         <Link to="/jobs/new" className={classes.link}>
                             <Button type="button" className={classes.button}>Create new post</Button>
