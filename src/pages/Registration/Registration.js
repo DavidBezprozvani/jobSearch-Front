@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Link, Typography} from '@material-ui/core';
+import {Button, Container, Link, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
@@ -10,25 +10,21 @@ import {saveUser} from "../../api/usersApi"
 const useStyles = makeStyles((theme) => ({
 
 
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        flexFlow: "row wrap",
-        alignItems: 'center',
+    container: {
+        marginTop: "100px",
     },
+
     form: {
         display: 'flex',
         flexDirection: "column",
         flexFlow: "row wrap",
-        padding: "20px 100px",
 
     },
 
     field: {
-        padding: "20px 100px",
-        marginTop: "10px",
-        fontSize: "15px",
+        padding: "5px 10px",
+        marginTop: "15px",
+        fontSize: "18px",
         flexDirection: "column",
 
         border: "0",
@@ -36,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         borderBottom: "2px solid #3d69be",
         '&:focus': {
             boxShadow: "0 0 5px #3d69be",
-            padding: "20px 100px",
+            padding: "10px 10px",
             borderBottom: "1px solid #3d69be",
             opacity: "0.9",
         }
@@ -51,6 +47,11 @@ const useStyles = makeStyles((theme) => ({
             background: "#3d69be",
         }
     },
+
+    title: {
+        display: "flex",
+        justifyContent: "center",
+    }
 }));
 
 export default function Registration() {
@@ -98,10 +99,10 @@ export default function Registration() {
             onSubmit={handleOnSubmit}
         >
             {(props) => (
-                 <div className={classes.paper}>
-                        <Typography component="h1" variant="h5">
-                            Sign up
-                        </Typography>
+                <Container className={classes.container} maxWidth="sm">
+                    <Typography className={classes.title} component="h1" variant="h5">
+                        Sign up
+                    </Typography>
                         <Form className={classes.form} noValidate>
                                     <Field
                                         className={classes.field}
@@ -151,7 +152,7 @@ export default function Registration() {
                                         Already have an account? Sign in
                                     </Link>
                         </Form>
-                    </div>
+                </Container>
             )}
         </Formik>
     );

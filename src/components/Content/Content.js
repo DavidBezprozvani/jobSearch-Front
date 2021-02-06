@@ -11,6 +11,7 @@ import CompanyList from "../../pages/Company/CompanyList";
 import JobForm from "../../pages/Jobs/JobForm";
 import SingleJob from "../../pages/Jobs/SingleJob";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import CompanyForm from "../../pages/Company/CompanyForm";
 
 
 export default () => (
@@ -31,9 +32,12 @@ export default () => (
             <PrivateRoute path="/users" roles={['ADMIN']}>
                 <UserList/>
             </PrivateRoute>
-            <Route path="/companies">
+            <Route exact path="/companies">
                 <CompanyList/>
             </Route>
+            <PrivateRoute path="/companies/new" roles={['ADMIN', 'USER']}>
+                <CompanyForm/>
+            </PrivateRoute>
             <Route path="/registration">
                 <Registration/>
             </Route>

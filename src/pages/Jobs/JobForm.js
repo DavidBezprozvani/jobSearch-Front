@@ -1,14 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, TextField, Container, TextareaAutosize, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import {useHistory} from "react-router-dom"
-import {addPost} from "../../api/postApi"
+import {addPost, fetchAllPosts} from "../../api/postApi"
 
 const useStyles = makeStyles((theme) => ({
 
     container: {
-        marginTop: "10px",
+        marginTop: "100px",
+    },
+
+    form: {
+        display: 'flex',
+        flexDirection: "column",
+        flexFlow: "row wrap",
+
+    },
+
+    field: {
+        padding: "5px 5px",
+        marginTop: "15px",
+        fontSize: "18px",
+        flexDirection: "column",
+
+        border: "0",
+        outline: "0",
+        borderBottom: "2px solid #3d69be",
+        '&:focus': {
+            boxShadow: "0 0 5px #3d69be",
+            padding: "10px 10px",
+            borderBottom: "1px solid #3d69be",
+            opacity: "0.9",
+        }
+    },
+
+    button: {
+        background: "#3d69be",
+        margin: "30px 0",
+        color: "white",
+        fontSize: "14px",
+        textDecoration: "none",
+        borderRadius: "15px",
+        borderStyle: "solid",
+        paddingLeft: "15px",
+        paddingRight: "15px",
+        '&:hover': {
+            opacity: "0.9",
+            background: "#3d69be",
+        }
+    },
+
+    title: {
+        display: "flex",
+        justifyContent: "center",
     },
 
     submit: {
@@ -25,6 +70,16 @@ const useStyles = makeStyles((theme) => ({
 const JobForm = () => {
     const classes = useStyles()
     const history = useHistory()
+    const [posts, setPosts] = useState([])
+
+    const loadAllJobs = () => {
+        setIsLoading(true);
+        fetchAllPosts().then(response => {
+            setPosts(response.data)
+        }).finally(() => {
+            setIsLoading(false)
+        })
+    }
 
 
     const handleOnSubmit = (formValues, formikHelpers) => {
@@ -38,6 +93,9 @@ const JobForm = () => {
             })
     }
 
+    const handleGoBack = () => {
+        history.push("/jobs")
+    }
 
     return (
 
@@ -60,60 +118,56 @@ const JobForm = () => {
                 {(props) => (
 
                     <Container className={classes.container} maxWidth="sm">
+                        <Button className={classes.button} onClick={() => handleGoBack()}>Back</Button>
                         <Typography component="h1" variant="h5">Create new job post!</Typography>
                     <Form className={classes.form}>
-                        <TextField
+                        <Field
+                            className={classes.field}
                             name="title"
                             autoComplete="title"
-                            label="Title"
+                            placeholder="Title"
                             multiline
                             fullWidth
                         />
-                        <TextField
+                        <Field
+                            className={classes.field}
                             name="type"
-                            label="Type"
+                            placeholder="Type"
                             fullWidth
                         />
-                        <TextField
-                            label="Description"
+                        <Field component="textarea" rowsMin={10}
+                            className={classes.field}
                             name="description"
+                            placeholder="Description"
                             multiline
                             fullWidth
                         />
-                        <TextField
+                        <Field component="textarea"
+                            className={classes.field}
                             name="summary"
-                            label="Summary"
+                            placeholder="Summary"
                             multiline
                             fullWidth
                         />
-                        <TextField
+                        <Field
+                            className={classes.field}
                             name="location"
-                            label="Location"
+                            placeholder="Location"
                             fullWidth
                         />
-                        <TextField
-                            name="applyUrl"
-                            label="Apply Url"
-                            multiline
-                            fullWidth
-                        />
-                        <TextField
-                            name="companyUrl"
-                            label="Company website"
+                        <Field
+                            className={classes.field}
+                            name="email"
+                            placeholder="Apply URL (email)"
                             multiline
                             fullWidth
                         />
                         {/*// TODO: change to file upload*/}
-                        <TextField
-                            name="logoUrl"
-                            label="Logo Url"
-                            multiline
-                            fullWidth
-                        />
                         <Button
                             type="submit"
                             fullWidth
                             disabled={props.isSubmitting}
+                            className={classes.button}
                         >
                             Sign Up
                         </Button>

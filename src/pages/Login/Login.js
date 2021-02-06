@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, FormControlLabel, Checkbox, Link, Grid, Typography, makeStyles} from '@material-ui/core';
+import {Button, FormControlLabel, Checkbox, Link, Grid, Typography, makeStyles, Container} from '@material-ui/core';
 import {Formik, Form, ErrorMessage, Field} from "formik";
 import * as Yup from "yup"
 import {useHistory, useLocation} from "react-router-dom"
@@ -10,47 +10,56 @@ import {setJwt, setUserData} from "../../store/slices/userSlice";
 const useStyles = makeStyles((theme) => ({
 
 
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+
+    container: {
+        marginTop: "100px",
     },
 
-    submit: {
-        margin: theme.spacing(3, 0, 2),
+    form: {
+        display: 'flex',
+        flexDirection: "column",
+        flexFlow: "row wrap",
+
+    },
+
+    field: {
+        padding: "5px 5px",
+        marginTop: "15px",
+        fontSize: "18px",
+        flexDirection: "column",
+
+        border: "0",
+        outline: "0",
+        borderBottom: "2px solid #3d69be",
+        '&:focus': {
+            boxShadow: "0 0 5px #3d69be",
+            padding: "10px 10px",
+            borderBottom: "1px solid #3d69be",
+            opacity: "0.9",
+        },
+    },
+
+    button: {
         background: "#3d69be",
+        margin: "30px 0",
         color: "white",
+        fontSize: "14px",
+        textDecoration: "none",
+        borderRadius: "15px",
+        borderStyle: "solid",
+        paddingLeft: "15px",
+        paddingRight: "15px",
         '&:hover': {
             opacity: "0.9",
             background: "#3d69be",
         }
     },
 
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: "20px 100px",
-
-    },
-
-    field: {
-        padding: "20px 100px",
-        marginTop: "10px",
-        fontSize: "15px",
-        textAlign: "left",
-        border: "0",
-        outline: "0",
-        borderBottom: "2px solid #3d69be",
-        '&:focus': {
-            boxShadow: "0 0 5px #3d69be",
-            padding: "20px 100px",
-            borderBottom: "1px solid #3d69be",
-            opacity: "0.9",
-
-        }
+    title: {
+        display: "flex",
+        justifyContent: "center",
     }
+
 }));
 
 const Login = () => {
@@ -71,7 +80,6 @@ const Login = () => {
                 history.push("/")
             })
             .catch(() => setSubmitting(false))
-
     }
 
 
@@ -99,8 +107,8 @@ const Login = () => {
             {(props) => (
 
             <>
-                        <div className={classes.paper}>
-                            <Typography component="h1" variant="h5">Sign in</Typography>
+                <Container className={classes.container} maxWidth="sm">
+                            <Typography className={classes.title} component="h1" variant="h5">Sign in</Typography>
                             <Form className={classes.form}>
                                 <Field
                                     className={classes.field}
@@ -131,8 +139,7 @@ const Login = () => {
                                 <Button
                                     type="submit"
                                     fullWidth
-                                    variant="contained"
-                                    className={classes.submit}
+                                    className={classes.button}
                                     disabled={props.isSubmitting}
                                 >
                                     Sign In
@@ -150,7 +157,7 @@ const Login = () => {
                                     </Grid>
                                 </Grid>
                             </Form>
-                        </div>
+                </Container>
             </>
             )}
         </Formik>

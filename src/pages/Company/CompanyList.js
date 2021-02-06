@@ -5,20 +5,72 @@ import {
     ListItemAvatar,
     makeStyles,
     ListItem,
-    ListItemText,
     Typography,
+    Container, Button,
 } from "@material-ui/core";
 import Loader from "../../common/Loader";
 import {fetchAllCompanies} from "../../api/companyApi";
+import {Link} from "react-router-dom";
 
 
 const useStyles = makeStyles(() => ({
 
+    wrapper: {
+        marginTop: "130px",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        alignContent: "center",
+        justifyContent: "center",
+    },
+
+    list: {
+        width: "100%",
+        height: "100%",
+        marginTop: "25px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexWrap: "wrap",
+    },
+
+    listItems: {
+        width: "33%",
+        height: "33%",
+        padding: "30px",
+        display: "flex",
+        marginTop: "50px",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
     companyLogo: {
-        width: "100px",
-        height: "100px",
+        width: "300px",
+        height: "300px",
         borderRadius: "10px",
         marginRight: "30px",
+    },
+
+    button: {
+        background: "#3d69be",
+        margin: "10px 0",
+        color: "white",
+        fontSize: "20px",
+        textDecoration: "none",
+        borderRadius: "15px",
+        borderStyle: "solid",
+        paddingLeft: "15px",
+        paddingRight: "15px",
+        '&:hover': {
+            opacity: "0.9",
+            background: "#3d69be",
+        }
+    },
+
+    link: {
+        textDecoration: "none",
     },
 
 }));
@@ -50,32 +102,35 @@ const CompanyList = () => {
     return (
 
         <>
-            <Typography variant="h3"> Our Partners: </Typography>
+
             {
                 isLoading ?
                     <Loader/>
                     :
 
-                    <List>
-                        {
-                            companies.map(company => (
-                                    <>
-                                        <ListItem className={classes.listItems}>
-                                            <ListItemAvatar>
-                                                <img className={classes.companyLogo} src={company.logoUrl}/>
-                                            </ListItemAvatar>
-                                            <ListItemText>
-                                                <Typography variant="h4">{company.companyName}</Typography>
-                                                <p>{company.address}</p>
-
-                                            </ListItemText>
-                                        </ListItem>
-                                        <Divider variant="inset" component="li"/>
-                                    </>
+                    <Container className={classes.wrapper}>
+                        <Link to="/companies/new" className={classes.link}>
+                            <Button type="button" className={classes.button}>BECOME OUR PARTNER</Button>
+                        </Link>
+                        {/*<Typography variant="h3"> Our Partners</Typography>*/}
+                        <List className={classes.list}>
+                            {
+                                companies.map(company => (
+                                        <>
+                                            <div className={classes.listItems}>
+                                                <ListItem>
+                                                    <ListItemAvatar>
+                                                        <img className={classes.companyLogo} src={company.logoUrl}/>
+                                                    </ListItemAvatar>
+                                                </ListItem>
+                                                <Divider variant="inset" component="li"/>
+                                            </div>
+                                        </>
+                                    )
                                 )
-                            )
-                        }
-                    </List>
+                            }
+                        </List>
+                    </Container>
             }
         </>
     )

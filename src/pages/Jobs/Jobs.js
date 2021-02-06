@@ -25,9 +25,6 @@ const useStyles = makeStyles(() => ({
         textDecoration: "none",
         margin: "10px 20px",
         padding: "20px 20px",
-        // alignContent: "space-between",
-        // alignItems: "space-between",
-        // justifyContent: "center",
         display: "flex",
 
 
@@ -58,20 +55,31 @@ const useStyles = makeStyles(() => ({
         margin: "10px 0",
         color: "white",
         fontSize: "14px",
+        textDecoration: "none",
         borderRadius: "15px",
         borderStyle: "solid",
-        paddingLeft: "15px",
-        paddingRight: "15px",
+        paddingLeft: "35px",
+        paddingRight: "35px",
         '&:hover': {
             opacity: "0.9",
             background: "#3d69be",
         }
     },
 
+    link: {
+        textDecoration: "none",
+        color: "black",
+        '&:hover': {
+            textDecoration: "underline",
+            opacity: "0.9",
+            color: "#3d69be",
+        }
+    },
+
     delete: {
         float: "right",
         '&:hover': {
-            opacity: "0.5",
+            opacity: "0.8",
             cursor: "pointer",
         }
     }
@@ -126,7 +134,9 @@ const Jobs = () => {
                         <Typography variant="h3">
                             Total jobs: {posts.length}
                         </Typography>
-
+                        <Link to="/jobs/new" className={classes.link}>
+                            <Button type="button" className={classes.button}>Create new post</Button>
+                        </Link>
                         <List>
                             {
                                 posts.map(post => (
@@ -137,8 +147,8 @@ const Jobs = () => {
                                                 </ListItemAvatar>
 
                                                 <div>
-                                                    <Link to={`/jobs/${post.id}`}>
-                                                    <Typography variant="h6">{post.title}</Typography>
+                                                    <Link className={classes.link} to={`/jobs/${post.id}`}>
+                                                    <Typography  variant="h6">{post.title}</Typography>
                                                     </Link>
                                                     <Typography variant="h5">{post.companyName}</Typography>
                                                     <Typography variant="h6"
@@ -178,13 +188,9 @@ const Jobs = () => {
                                 )
                             }
                         </List>
+
                     </Container>
             }
-
-            <Link to="/jobs/new">
-                <Button type="button">Create product</Button>
-            </Link>
-
         </>
 
     )
