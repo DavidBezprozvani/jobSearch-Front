@@ -12,6 +12,7 @@ import PostForm from "../../pages/Posts/PostForm";
 import SinglePost from "../../pages/Posts/SinglePost";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import CompanyForm from "../../pages/Company/CompanyForm";
+import EditPostForm from "../../pages/Posts/EditPostForm";
 
 
 const Content = () => (
@@ -29,6 +30,9 @@ const Content = () => (
             <Route path="/jobs/:id">
                 <SinglePost/>
             </Route>
+            <PrivateRoute path="/jobs/update/:id" roles={['ADMIN', 'USER']}>
+                <EditPostForm/>
+            </PrivateRoute>
             <PrivateRoute path="/users" roles={['ADMIN']}>
                 <UserList/>
             </PrivateRoute>
@@ -47,6 +51,7 @@ const Content = () => (
             <Route path="/about">
                 <About/>
             </Route>
+
             <Route path="*">
                 <NotFound/>
             </Route>

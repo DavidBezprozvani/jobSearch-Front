@@ -1,9 +1,10 @@
 import React from 'react';
 import {Button,  Container, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import {Formik, Form, Field} from "formik";
+import {Formik, Form, Field, ErrorMessage} from "formik";
 import {useHistory} from "react-router-dom"
 import {addCompany} from "../../api/companyApi"
+import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "15px",
         fontSize: "18px",
         flexDirection: "column",
-
+        background: "inherit",
         border: "0",
         outline: "0",
         borderBottom: "2px solid #3d69be",
@@ -54,7 +55,12 @@ const useStyles = makeStyles((theme) => ({
     title: {
         display: "flex",
         justifyContent: "center",
+    },
+
+    error: {
+        color: "#ff0000c7",
     }
+
 }));
 
 const CompanyForm = () => {
@@ -77,6 +83,24 @@ const CompanyForm = () => {
         history.push("/companies")
     }
 
+    const validationSchema = Yup.object({
+        companyName: Yup
+            .string()
+            .required("Company name is required"),
+        registrationCode: Yup
+            .number()
+            .positive()
+            .min(3, 'Registration code is too short')
+            .required('Registration code is required'),
+        address: Yup
+            .string()
+            .required('Adress is required'),
+        logoUrl: Yup
+            .string()
+            .required('Company logo url is required'),
+
+    });
+
 
     return (
 
@@ -91,12 +115,13 @@ const CompanyForm = () => {
                     companyUrl: ""
                 }}
                 onSubmit={handleOnSubmit}
+                validationSchema = {validationSchema}
             >
                 {(props) => (
 
                     <Container className={classes.container} maxWidth="sm">
                         <Button className={classes.button} onClick={() => handleGoBack()}>Back</Button>
-                        <Typography className={classes.title} component="h1" variant="h5">Create new job post!</Typography>
+                        <Typography className={classes.title} component="h1" variant="h5">let's go</Typography>
                         <Form className={classes.form}>
                             <Field
                                 className={classes.field}
@@ -105,6 +130,9 @@ const CompanyForm = () => {
                                 placeholder="Company name"
                                 fullWidth
                             />
+                            <ErrorMessage name="companyName"
+                                          className={classes.error}
+                                          component="small"/>
                             <Field
                                 className={classes.field}
                                 name="registrationCode"
@@ -112,18 +140,27 @@ const CompanyForm = () => {
                                 placeholder="Registration Code"
                                 fullWidth
                             />
+                            <ErrorMessage name="registrationCode"
+                                          className={classes.error}
+                                          component="small"/>
                             <Field
                                 className={classes.field}
                                 name="address"
                                 placeholder="Address"
                                 fullWidth
                             />
+                            <ErrorMessage name="address"
+                                          className={classes.error}
+                                          component="small"/>
                             <Field
                                 className={classes.field}
                                 placeholder="Logo URL"
                                 name="logoUrl"
                                 fullWidth
                             />
+                            <ErrorMessage name="logoUrl"
+                                          className={classes.error}
+                                          component="small"/>
                             <Field
                                 className={classes.field}
                                 placeholder="Company URL"

@@ -98,11 +98,11 @@ const Posts = () => {
 
 
     useEffect(() => {
-        loadAllJobs();
+        loadAllPosts();
     }, [])
 
 
-    const loadAllJobs = () => {
+    const loadAllPosts = () => {
         setIsLoading(true);
         fetchAllPosts().then(response => {
             setPosts(response.data)
@@ -117,7 +117,7 @@ const Posts = () => {
 
         deletePost(id)
             .then(() => {
-                loadAllJobs();
+                loadAllPosts();
             })
     }
 
@@ -190,10 +190,9 @@ const Posts = () => {
                                                     }
                                                     {
                                                         user?.roles.includes('ADMIN') && (
-                                                            <EditIcon color="primary" className={classes.icon}
-                                                                              // onClick={() => handleEditClick(post.id)}
-                                                            />
-
+                                                            <Link to={`/jobs/update/${post.id}`} className={classes.link}>
+                                                            <EditIcon color="primary" className={classes.icon}/>
+                                                            </Link>
                                                         )
 
                                                     }

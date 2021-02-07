@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Container, Link, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import {Formik, Form, Field} from "formik";
+import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import {useHistory} from "react-router-dom"
 import {saveUser} from "../../api/usersApi"
@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) => ({
     },
 
     field: {
-        padding: "5px 10px",
+        padding: "5px 5px",
         marginTop: "15px",
         fontSize: "18px",
         flexDirection: "column",
-
+        background: "inherit",
         border: "0",
         outline: "0",
         borderBottom: "2px solid #3d69be",
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
             padding: "10px 10px",
             borderBottom: "1px solid #3d69be",
             opacity: "0.9",
-        }
+        },
     },
 
     submit: {
@@ -52,6 +52,10 @@ const useStyles = makeStyles((theme) => ({
     title: {
         display: "flex",
         justifyContent: "center",
+    },
+
+    error: {
+        color: "#ff0000c7",
     }
 }));
 
@@ -65,7 +69,7 @@ const Registration = () => {
         formikHelpers.setSubmitting(true)
         saveUser(formValues)
             .then(res => {
-                history.push("/");
+                history.push("/login");
             })
             .finally(() => {
                 formikHelpers.setSubmitting(false)
@@ -76,15 +80,24 @@ const Registration = () => {
     const validationSchema = Yup.object({
         username: Yup
             .string()
-            .required("Enter your username"),
+            .min(4, "Minimum 4 characters")
+            .max(10, "Max 10 characters")
+            .required("Username is required"),
+        password: Yup
+            .string()
+            .min(3, 'Minimum 3 characters')
+            .required('Password is required'),
+        name: Yup
+            .string()
+            .required('Name is required'),
+        surname: Yup
+            .string()
+            .required('Surname is required'),
         email: Yup
-            .string('Enter your email')
+            .string()
             .email('Enter a valid email')
             .required('Email is required'),
-        password: Yup
-            .string('Enter your password')
-            .min(3, 'Password should be of minimum 3 characters length')
-            .required('Password is required'),
+
     });
 
     return (
@@ -97,6 +110,7 @@ const Registration = () => {
                 email: "",
             }}
             onSubmit={handleOnSubmit}
+            validationSchema = {validationSchema}
         >
             {(props) => (
                 <Container className={classes.container} maxWidth="sm">
@@ -109,29 +123,37 @@ const Registration = () => {
                             placeholder="Enter your username"
                             name="username"
                             autoComplete="username"
-                            autoFocus
                         />
+                        <ErrorMessage name="username"
+                                      className={classes.error}
+                                      component="small"/>
                         <Field
                             className={classes.field}
                             placeholder="Enter your first name"
                             name="name"
                             autoComplete="name"
-                            autoFocus
                         />
+                        <ErrorMessage name="name"
+                                      className={classes.error}
+                                      component="small"/>
                         <Field
                             className={classes.field}
                             placeholder="Enter your last name"
                             name="surname"
                             autoComplete="surname"
-                            autoFocus
                         />
+                        <ErrorMessage name="surname"
+                                      className={classes.error}
+                                      component="small"/>
                         <Field
                             className={classes.field}
                             placeholder="Enter your email"
                             name="email"
                             autoComplete="email"
-                            autoFocus
                         />
+                        <ErrorMessage name="email"
+                                      className={classes.error}
+                                      component="small"/>
                         <Field
                             className={classes.field}
                             name="password"
@@ -139,6 +161,9 @@ const Registration = () => {
                             type="password"
                             id="password"
                         />
+                        <ErrorMessage name="password"
+                                      className={classes.error}
+                                      component="small"/>
                         <Button
                             type="submit"
                             // fullWidth

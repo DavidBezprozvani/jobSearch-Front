@@ -120,7 +120,6 @@ const PostForm = () => {
                             summary: "",
                             location: "",
                             applyUrl: "",
-                            logoUrl: "",
 
                         }}
                         onSubmit={handleOnSubmit}

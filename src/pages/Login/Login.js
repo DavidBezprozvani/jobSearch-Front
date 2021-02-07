@@ -6,10 +6,7 @@ import {useHistory} from "react-router-dom"
 import {useDispatch} from "react-redux";
 import {login} from "../../api/usersApi"
 import {setJwt, setUserData} from "../../store/slices/userSlice";
-
 const useStyles = makeStyles((theme) => ({
-
-
 
     container: {
         marginTop: "100px",
@@ -27,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "15px",
         fontSize: "18px",
         flexDirection: "column",
-
+        background: "inherit",
         border: "0",
         outline: "0",
         borderBottom: "2px solid #3d69be",
@@ -61,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     title: {
         display: "flex",
         justifyContent: "center",
+    },
+
+    error: {
+        color: "#ff0000c7",
     }
 
 }));
@@ -92,8 +93,7 @@ const Login = () => {
             .string()
             .required("Username is required"),
         password: Yup
-            .string('Enter your password')
-            .min(8, 'Password should be of minimum 8 characters length')
+            .string()
             .required('Password is required'),
     });
 
@@ -103,9 +103,11 @@ const Login = () => {
             initialValues={{
                 username: "",
                 password: "",
-                // validationSchema: {validationSchema},
+
             }}
+
             onSubmit={handleLogin}
+            validationSchema = {validationSchema}
         >
             {(props) => (
 
@@ -113,6 +115,7 @@ const Login = () => {
                 <Container className={classes.container} maxWidth="sm">
                             <Typography className={classes.title} component="h1" variant="h5">Sign in</Typography>
                             <Form className={classes.form}>
+
                                 <Field
                                     className={classes.field}
                                     placeholder="Please enter username"
@@ -121,18 +124,17 @@ const Login = () => {
                                     autoFocus
                                 />
                                 <ErrorMessage name="username"
-                                              className="form-text text-danger"
+                                              className={classes.error}
                                               component="small"/>
                                 <Field
                                     className={classes.field}
                                     name="password"
-                                    label="Password"
                                     placeholder="Please enter password"
                                     type="password"
                                     id="password"
                                 />
                                 <ErrorMessage name="password"
-                                              className="form-text text-danger"
+                                              className={classes.error}
                                               component="small"/>
                                 <FormControlLabel
                                     control={<Checkbox value="remember" color="primary"/>}

@@ -4,6 +4,10 @@ import {makeStyles} from '@material-ui/core/styles';
 import {CardContent, Button, Typography, Card} from '@material-ui/core';
 import {useEffect, useState} from "react";
 import {fetchSinglePost} from "../../api/postApi";
+import EditIcon from "@material-ui/icons/Edit";
+import useUser from "../../hooks/useUser";
+import {Link} from "react-router-dom";
+
 
 
 const SinglePost = () => {
@@ -25,13 +29,23 @@ const SinglePost = () => {
         },
         button: {
             margin: 15,
-        }
+        },
+        link: {
+            textDecoration: "none",
+            color: "black",
+            '&:hover': {
+                textDecoration: "underline",
+                opacity: "0.9",
+                color: "#3d69be",
+            }
+        },
     });
 
     const {id} = useParams();
     const history = useHistory();
     const [post, setPost] = useState(null);
     const classes = useStyles();
+    const user = useUser()
 
 
     const handleGoBack = () => {
@@ -49,10 +63,20 @@ const SinglePost = () => {
 
     return (
         <>
+
             <Button className={classes.button} onClick={() => handleGoBack()}>Back</Button>
             {post && (
 
+
                 <Card className={classes.root} variant="outlined">
+                    {
+                        user?.roles.includes('ADMIN') && (
+                            <Link to={`/jobs/update/${post.id}`} className={classes.link}>
+                                <EditIcon color="primary" className={classes.icon}/>
+                            </Link>
+                        )
+
+                    }
                     <CardContent>
                         <Typography className={classes.title} variant="body2" component="p">
                             {post.companyName}
