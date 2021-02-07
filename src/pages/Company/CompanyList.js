@@ -8,6 +8,7 @@ import {
 import Loader from "../../common/Loader";
 import {fetchAllCompanies} from "../../api/companyApi";
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles(() => ({
@@ -78,6 +79,7 @@ const CompanyList = () => {
     const classes = useStyles();
     const [companies, setCompanies] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const { t } = useTranslation('companies')
 
 
     useEffect(() => {
@@ -108,7 +110,9 @@ const CompanyList = () => {
 
                     <Container className={classes.wrapper}>
                         <Link to="/companies/new" className={classes.link}>
-                            <Button type="button" className={classes.button}>BECOME OUR PARTNER</Button>
+                            <Button type="button" className={classes.button}>
+                               {t ('join')}
+                            </Button>
                         </Link>
                         <List className={classes.list}>
                             {

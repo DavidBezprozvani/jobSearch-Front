@@ -3,6 +3,22 @@
     "welcome": "Sveiki atvykę į JOBER!"
   },
   "jobs": {
-    "totalJobs": "Galite rinktis iš {{total}} darbo pasiūlymų!"
+    "totalJobs": "Galite rinktis iš {{total}} darbo pasiūlymų!",
+    "createNewPost": "SUKURTI SKELBIMĄ",
+    "viewDetails": "Peržiūrėti",
+    "hideDetails": "Paslėpti",
+    "uploaded": "Įkeltas"
+  },
+
+  "userRegistration": {
+    "username": "Slapyvardis",
+    "name": "Vardas",
+    "surname": "Pavardė",
+    "email": "El. paštas",
+    "password": "Slaptažodis"
+  },
+
+  "companies": {
+    "join": "Prisijunk"
   }
 }

@@ -5,6 +5,7 @@ import {Formik, Form, Field} from "formik";
 import * as Yup from "yup";
 import {useHistory} from "react-router-dom"
 import {saveUser} from "../../api/usersApi"
+import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +58,7 @@ const useStyles = makeStyles((theme) => ({
 const Registration = () => {
     const classes = useStyles()
     const history = useHistory()
-
-
+    const {t} = useTranslation('userRegistration')
 
 
     const handleOnSubmit = (formValues, formikHelpers) => {
@@ -103,55 +103,55 @@ const Registration = () => {
                     <Typography className={classes.title} component="h1" variant="h5">
                         Sign up
                     </Typography>
-                        <Form className={classes.form} noValidate>
-                                    <Field
-                                        className={classes.field}
-                                        placeholder="Enter your username"
-                                        name="username"
-                                        autoComplete="username"
-                                        autoFocus
-                                    />
-                                    <Field
-                                        className={classes.field}
-                                        placeholder="Enter your first name"
-                                        name="name"
-                                        autoComplete="name"
-                                        autoFocus
-                                    />
-                                    <Field
-                                        className={classes.field}
-                                        placeholder="Enter your last name"
-                                        name="surname"
-                                        autoComplete="surname"
-                                        autoFocus
-                                    />
-                                    <Field
-                                        className={classes.field}
-                                        placeholder="Enter your email"
-                                        name="email"
-                                        autoComplete="email"
-                                        autoFocus
-                                    />
-                                    <Field
-                                        className={classes.field}
-                                        name="password"
-                                        placeholder="Enter password"
-                                        type="password"
-                                        id="password"
-                                    />
-                            <Button
-                                type="submit"
-                                // fullWidth
-                                className={classes.submit}
-                                disabled={props.isSubmitting}
-                            >
-                                Sign Up
-                            </Button>
+                    <Form className={classes.form} noValidate>
+                        <Field
+                            className={classes.field}
+                            placeholder="Enter your username"
+                            name="username"
+                            autoComplete="username"
+                            autoFocus
+                        />
+                        <Field
+                            className={classes.field}
+                            placeholder="Enter your first name"
+                            name="name"
+                            autoComplete="name"
+                            autoFocus
+                        />
+                        <Field
+                            className={classes.field}
+                            placeholder="Enter your last name"
+                            name="surname"
+                            autoComplete="surname"
+                            autoFocus
+                        />
+                        <Field
+                            className={classes.field}
+                            placeholder="Enter your email"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                        />
+                        <Field
+                            className={classes.field}
+                            name="password"
+                            placeholder="Enter password"
+                            type="password"
+                            id="password"
+                        />
+                        <Button
+                            type="submit"
+                            // fullWidth
+                            className={classes.submit}
+                            disabled={props.isSubmitting}
+                        >
+                            Sign Up
+                        </Button>
 
-                                    <Link to="/login" variant="body2">
-                                        Already have an account? Sign in
-                                    </Link>
-                        </Form>
+                        <Link to="/login" variant="body2">
+                            Already have an account? Sign in
+                        </Link>
+                    </Form>
                 </Container>
             )}
         </Formik>

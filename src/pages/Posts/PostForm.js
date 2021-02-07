@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const JobForm = () => {
+const PostForm = () => {
     const classes = useStyles()
     const history = useHistory()
     const [companies, setCompanies] = useState([])
@@ -205,4 +205,4 @@ const JobForm = () => {
     );
 }
 
-export default JobForm
+export default PostForm

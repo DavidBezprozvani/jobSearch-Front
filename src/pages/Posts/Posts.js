@@ -20,7 +20,6 @@ import Loader from "../../common/Loader";
 import useUser from "../../hooks/useUser";
 import { useTranslation } from "react-i18next";
 
-
 const useStyles = makeStyles(() => ({
 
     posts: {
@@ -88,8 +87,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const Jobs = () => {
-
+const Posts = () => {
 
     const classes = useStyles();
     const [posts, setPosts] = useState([])
@@ -113,6 +111,7 @@ const Jobs = () => {
         })
     }
 
+
     const handleDeleteClick = (id) => {
         setIsLoading(true);
 
@@ -121,6 +120,10 @@ const Jobs = () => {
                 loadAllJobs();
             })
     }
+
+
+
+
 
 
     return (
@@ -137,7 +140,9 @@ const Jobs = () => {
                             { t ('totalJobs', { total: posts.length })}
                         </Typography>
                         <Link to="/jobs/new" className={classes.link}>
-                            <Button type="button" className={classes.button}>Create new post</Button>
+                            <Button type="button" className={classes.button}>
+                                {t ('createNewPost')}
+                            </Button>
                         </Link>
                         <List>
                             {
@@ -194,7 +199,7 @@ const Jobs = () => {
                                                     }
 
 
-                                                    <Typography color="textSecondary">Uploaded: {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
+                                                    <Typography color="textSecondary">{t ('uploaded')} {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
                                                     <Chip label={post.type} className={classes.chip}/>
                                                 </div>
                                             </Paper>
@@ -211,4 +216,4 @@ const Jobs = () => {
     )
 
 }
-export default Jobs
+export default Posts

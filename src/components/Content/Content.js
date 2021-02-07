@@ -3,13 +3,13 @@ import {Switch, Route} from "react-router-dom"
 import Login from "../../pages/Login/Login";
 import LandingPage from "../../pages/LandingPage/LandingPage";
 import About from "../../pages/About/About";
-import Jobs from "../../pages/Jobs/Jobs";
+import Posts from "../../pages/Posts/Posts";
 import NotFound from "../../pages/NotFound/NotFound";
 import Registration from "../../pages/Registration/Registration";
 import UserList from "../../pages/Users/UserList";
 import CompanyList from "../../pages/Company/CompanyList";
-import JobForm from "../../pages/Jobs/JobForm";
-import SingleJob from "../../pages/Jobs/SingleJob";
+import PostForm from "../../pages/Posts/PostForm";
+import SinglePost from "../../pages/Posts/SinglePost";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import CompanyForm from "../../pages/Company/CompanyForm";
 
@@ -21,13 +21,13 @@ const Content = () => (
                 <LandingPage/>
             </Route>
             <Route exact path="/jobs">
-                <Jobs/>
+                <Posts/>
             </Route>
             <PrivateRoute path="/jobs/new" roles={['ADMIN', 'USER']}>
-                <JobForm/>
+                <PostForm/>
             </PrivateRoute>
             <Route path="/jobs/:id">
-                <SingleJob/>
+                <SinglePost/>
             </Route>
             <PrivateRoute path="/users" roles={['ADMIN']}>
                 <UserList/>

@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             opacity: "0.9",
             background: "#3d69be",
+        },
+        '&:active': {
+          color: "white",
         }
     },
 

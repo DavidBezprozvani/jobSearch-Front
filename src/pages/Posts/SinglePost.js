@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {fetchSinglePost} from "../../api/postApi";
 
 
-const SingleJob = () => {
+const SinglePost = () => {
 
     const useStyles = makeStyles({
         root: {
@@ -71,5 +71,5 @@ const SingleJob = () => {
     )
 }
 
-export default SingleJob
+export default SinglePost
 

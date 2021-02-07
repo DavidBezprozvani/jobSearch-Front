@@ -3,6 +3,22 @@
     "welcome": "Welcome to JOBER!"
   },
   "jobs": {
-    "totalJobs": "There are {{total}} positions waiting to filled!"
+    "totalJobs": "There are {{total}} positions waiting to filled!",
+    "createNewPost": "CREATE NEW POST",
+    "viewDetails": "View details",
+    "hideDetails": "Hide details",
+    "uploaded": "Uploaded"
+  },
+
+  "userRegistration": {
+    "username": "Username",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "Email",
+    "password": "Password"
+  },
+
+  "companies": {
+    "join": "BECOME OUR PARTNER"
   }
 }
