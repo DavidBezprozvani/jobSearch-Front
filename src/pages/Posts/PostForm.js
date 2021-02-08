@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom"
 import {addPost} from "../../api/postApi"
 import {fetchAllCompanies} from "../../api/companyApi";
 import Loader from "../../common/Loader";
+import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "15px",
         fontSize: "18px",
         flexDirection: "column",
-
+        color: "inherit",
         border: "0",
         outline: "0",
         borderBottom: "2px solid #3d69be",
@@ -58,15 +59,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
     },
 
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-        background: "#3d69be",
-        color: "white",
-        '&:hover': {
-            opacity: "0.9",
-            background: "#3d69be",
-        }
-    },
+    error: {
+        color: "#ff0000c7",
+    }
+
+
 }));
 
 const PostForm = () => {
@@ -104,6 +101,32 @@ const PostForm = () => {
         history.push("/jobs")
     }
 
+    const validationSchema = Yup.object({
+        title: Yup
+            .string()
+            .min(4, "Minimum 4 characters")
+            .max(10, "Max 10 characters")
+            .required("Title is required"),
+        type: Yup
+            .string()
+            .min(3, 'Minimum 3 characters')
+            .required('Type is required'),
+        description: Yup
+            .string()
+            .required('Description is required'),
+        summary: Yup
+            .string()
+            .required('Summary is required'),
+        location: Yup
+            .string()
+            .required('Location is required'),
+        applyUrl: Yup
+            .string()
+            .email('Enter a valid email')
+            .required('Location is required'),
+
+    });
+
     return (
 
         <>
@@ -123,6 +146,7 @@ const PostForm = () => {
 
                         }}
                         onSubmit={handleOnSubmit}
+                        validationSchema = {validationSchema}
                     >
                         {(props) => (
 
@@ -134,7 +158,7 @@ const PostForm = () => {
                                            options={companies}
                                            placeholder="Select company"
                                            name="companyId"
-                                           multiple={false}>
+                                           multiline="true">
                                         {
                                             companies.map(company => (
 
@@ -144,52 +168,61 @@ const PostForm = () => {
                                             ))
                                         }
                                     </Field>
-
                                     <Field
                                         className={classes.field}
                                         name="title"
                                         autoComplete="title"
                                         placeholder="Title"
                                         multiline
-                                        fullWidth
                                     />
+                                    <ErrorMessage name="title"
+                                                  className={classes.error}
+                                                  component="small"/>
                                     <Field
                                         className={classes.field}
                                         name="type"
                                         placeholder="Type"
-                                        fullWidth
                                     />
+                                    <ErrorMessage name="type"
+                                                  className={classes.error}
+                                                  component="small"/>
                                     <Field component="textarea"
                                            className={classes.field}
                                            name="description"
                                            placeholder="Description"
                                            multiline
-                                           fullWidth
                                     />
+                                    <ErrorMessage name="description"
+                                                  className={classes.error}
+                                                  component="small"/>
                                     <Field component="textarea"
                                            className={classes.field}
                                            name="summary"
                                            placeholder="Summary"
                                            multiline
-                                           fullWidth
                                     />
+                                    <ErrorMessage name="summary"
+                                                  className={classes.error}
+                                                  component="small"/>
                                     <Field
                                         className={classes.field}
                                         name="location"
                                         placeholder="Location"
-                                        fullWidth
                                     />
+                                    <ErrorMessage name="location"
+                                                  className={classes.error}
+                                                  component="small"/>
                                     <Field
                                         className={classes.field}
-                                        name="email"
+                                        name="applyUrl"
                                         placeholder="Apply URL (email)"
                                         multiline
-                                        fullWidth
                                     />
-                                    {/*// TODO: change to file upload*/}
+                                    <ErrorMessage name="applyUrl"
+                                                  className={classes.error}
+                                                  component="small"/>
                                     <Button
                                         type="submit"
-                                        fullWidth
                                         disabled={props.isSubmitting}
                                         className={classes.button}
                                     >

@@ -7,5 +7,4 @@ const Loader = () => {
         <LinearProgress color="primary" />
     )
 }
-
 export default Loader

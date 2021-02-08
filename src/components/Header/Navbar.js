@@ -4,8 +4,8 @@ import {NavLink} from "react-router-dom";
 import {removeJwt, removeUserData} from "../../store/slices/userSlice";
 import useUser from "../../hooks/useUser";
 import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
 import LangSwitcher from "./LangSwitcher";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
     logo: {
@@ -69,6 +69,7 @@ export default function Navbar() {
     const classes = useStyles();
     const user = useUser()
     const dispatch = useDispatch()
+    const { t } = useTranslation('navbar');
 
     const logout = () => {
         dispatch(removeJwt())
@@ -83,32 +84,32 @@ export default function Navbar() {
                 <Typography variant="h6" className={classes.title}>
                     <Link to="/" component={NavLink}>
                         <IconButton edge="start" className={classes.logo} color="inherit" aria-label="menu">
-                            <img alt="navLogo" className="logo" src={'./JOBER.svg'}/>
+                            <img alt="navLogo" className="logo" src="/JOBER.svg" />
                         </IconButton>
                     </Link>
                 </Typography>
                 <nav>
                     <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
-                          to="/jobs">Jobs</Link>
+                          to="/jobs">{t('jobs')}</Link>
                     <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
-                          to="/companies">Companies</Link>
+                          to="/companies">{t('companies')}</Link>
                     {
                         user?.roles.includes('ADMIN') && (
                             <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
-                                  to="/users">Users</Link>
+                                  to="/users">{t('users')}</Link>
                         )
                     }
                     <Link variant="button" color="textPrimary" className={classes.link} component={NavLink}
-                          to="/about">About</Link>
+                          to="/about">{t('about')}</Link>
                     <LangSwitcher/>
                     {
                         !!user ? (
-                                <Button className={classes.loginButton} onClick={logout}>Log Out</Button>
+                                <Button className={classes.loginButton} onClick={logout}>{t('logout')}</Button>
                         ) : (
                             <>
-                                <Button component={NavLink} className={classes.loginButton} to="/login">Login</Button>
+                                <Button component={NavLink} className={classes.loginButton} to="/login">{t('login')}</Button>
                                 <Button variant="outlined" component={NavLink} className={classes.registerButton}
-                                        to="/registration">Register</Button>
+                                        to="/registration">{t('register')}</Button>
                             </>
                         )
                     }

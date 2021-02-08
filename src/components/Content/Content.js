@@ -27,7 +27,7 @@ const Content = () => (
             <PrivateRoute path="/jobs/new" roles={['ADMIN', 'USER']}>
                 <PostForm/>
             </PrivateRoute>
-            <Route path="/jobs/:id">
+            <Route exact path="/jobs/:id">
                 <SinglePost/>
             </Route>
             <PrivateRoute path="/jobs/update/:id" roles={['ADMIN', 'USER']}>

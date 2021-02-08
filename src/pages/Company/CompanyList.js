@@ -117,13 +117,11 @@ const CompanyList = () => {
                         <List className={classes.list}>
                             {
                                 companies.map(company => (
-                                        <>
                                             <div className={classes.listItems} key={company.id}>
                                                 <ListItem>
                                                         <img alt="logo" className={classes.companyLogo} src={company.logoUrl}/>
                                                 </ListItem>
                                             </div>
-                                        </>
                                     )
                                 )
                             }

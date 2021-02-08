@@ -2,6 +2,17 @@
   "home": {
     "welcome": "Sveiki atvykę į JOBER!"
   },
+
+  "navbar": {
+    "jobs": "Darbai",
+    "companies": "Partneriai",
+    "users": "Vartotojai",
+    "about": "Apie",
+    "login": "Prisijungti",
+    "logout": "Atsijungti",
+    "register": "Registruotis"
+  },
+
   "jobs": {
     "totalJobs": "Galite rinktis iš {{total}} darbo pasiūlymų!",
     "createNewPost": "SUKURTI SKELBIMĄ",

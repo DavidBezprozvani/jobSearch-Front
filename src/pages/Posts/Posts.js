@@ -18,7 +18,7 @@ import {
 } from "@material-ui/core";
 import Loader from "../../common/Loader";
 import useUser from "../../hooks/useUser";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles(() => ({
 
@@ -94,7 +94,7 @@ const Posts = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [open, setOpen] = useState([])
     const user = useUser()
-    const { t } = useTranslation('jobs')
+    const {t} = useTranslation('jobs')
 
 
     useEffect(() => {
@@ -122,10 +122,6 @@ const Posts = () => {
     }
 
 
-
-
-
-
     return (
 
         // TODO: isskaidyti posts.title.includes(junior/mid/senior) ir padaryti radio buttonus searche
@@ -137,71 +133,76 @@ const Posts = () => {
 
                     <Container className={classes.jobs}>
                         <Typography variant="h3">
-                            { t ('totalJobs', { total: posts.length })}
+                            {t('totalJobs', {total: posts.length})}
                         </Typography>
-                        <Link to="/jobs/new" className={classes.link}>
-                            <Button type="button" className={classes.button}>
-                                {t ('createNewPost')}
-                            </Button>
-                        </Link>
+                        {
+                            user?.roles.includes('ADMIN', "USER") && (
+                                <Link to="/jobs/new" className={classes.link}>
+                                    <Button type="button" className={classes.button}>
+                                        {t('createNewPost')}
+                                    </Button>
+                                </Link>
+                            )
+                        }
                         <List>
                             {
                                 posts.map(post => (
 
-                                            <Paper className={classes.posts} key={post.id}>
-                                                <ListItemAvatar>
-                                                    <img alt="logo" className={classes.companyLogo} src={post.logoUrl}/>
-                                                </ListItemAvatar>
+                                        <Paper className={classes.posts} key={post.id}>
+                                            <ListItemAvatar>
+                                                <img alt="logo" className={classes.companyLogo} src={post.logoUrl}/>
+                                            </ListItemAvatar>
 
+                                            <div>
+                                                <Link className={classes.link} to={`/jobs/${post.id}`}>
+                                                    <Typography variant="h6">{post.title}</Typography>
+                                                </Link>
+                                                <Typography variant="h5">{post.companyName}</Typography>
+                                                <Typography variant="h6"
+                                                            color="textSecondary">{post.location}</Typography>
                                                 <div>
-                                                    <Link className={classes.link} to={`/jobs/${post.id}`}>
-                                                    <Typography  variant="h6">{post.title}</Typography>
-                                                    </Link>
-                                                    <Typography variant="h5">{post.companyName}</Typography>
-                                                    <Typography variant="h6"
-                                                                color="textSecondary">{post.location}</Typography>
-                                                    <div>
-                                                        <Button className={classes.button}
-                                                                onClick={() => {
-                                                                    if (open.includes(post.id)) {
-                                                                        setOpen(open.filter(id => id !== post.id))
-                                                                    } else {
-                                                                        setOpen([...open, post.id])
-                                                                    }
-                                                                }}
-                                                        >
-                                                            {open.includes(post.id) ? 'Hide Details' : 'View Details'}
-                                                        </Button>
-                                                        <Collapse in={open.includes(post.id)}>
-                                                            <div>
-                                                                <Typography variant="h6">{post.summary}</Typography>
-                                                            </div>
-                                                        </Collapse>
-                                                    </div>
+                                                    <Button className={classes.button}
+                                                            onClick={() => {
+                                                                if (open.includes(post.id)) {
+                                                                    setOpen(open.filter(id => id !== post.id))
+                                                                } else {
+                                                                    setOpen([...open, post.id])
+                                                                }
+                                                            }}
+                                                    >
+                                                        {open.includes(post.id) ? 'Hide Details' : 'View Details'}
+                                                    </Button>
+                                                    <Collapse in={open.includes(post.id)}>
+                                                        <div>
+                                                            <Typography variant="h6">{post.summary}</Typography>
+                                                        </div>
+                                                    </Collapse>
                                                 </div>
-                                                <div>
-                                                    {
-                                                        user?.roles.includes('ADMIN') && (
-                                                            <HighlightOffIcon color="error" className={classes.icon}
-                                                                              onClick={() => handleDeleteClick(post.id)}/>
+                                            </div>
+                                            <div>
+                                                {
+                                                    user?.roles.includes('ADMIN') && (
+                                                        <HighlightOffIcon color="error" className={classes.icon}
+                                                                          onClick={() => handleDeleteClick(post.id)}/>
 
-                                                        )
+                                                    )
 
-                                                    }
-                                                    {
-                                                        user?.roles.includes('ADMIN') && (
-                                                            <Link to={`/jobs/update/${post.id}`} className={classes.link}>
+                                                }
+                                                {
+                                                    user?.roles.includes('ADMIN') && (
+                                                        <Link to={`/jobs/update/${post.id}`} className={classes.link}>
                                                             <EditIcon color="primary" className={classes.icon}/>
-                                                            </Link>
-                                                        )
+                                                        </Link>
+                                                    )
 
-                                                    }
+                                                }
 
 
-                                                    <Typography color="textSecondary">{t ('uploaded')} {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
-                                                    <Chip label={post.type} className={classes.chip}/>
-                                                </div>
-                                            </Paper>
+                                                <Typography
+                                                    color="textSecondary">{t('uploaded')} {moment(post.createdAt).format('YYYY-DD-MM HH:MM')}</Typography>
+                                                <Chip label={post.type} className={classes.chip}/>
+                                            </div>
+                                        </Paper>
 
                                     )
                                 )

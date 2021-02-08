@@ -2,6 +2,17 @@
   "home": {
     "welcome": "Welcome to JOBER!"
   },
+
+  "navbar": {
+    "jobs": "Jobs",
+    "companies": "Companies",
+    "users": "Users",
+    "about": "About",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register"
+  },
+
   "jobs": {
     "totalJobs": "There are {{total}} positions waiting to filled!",
     "createNewPost": "CREATE NEW POST",

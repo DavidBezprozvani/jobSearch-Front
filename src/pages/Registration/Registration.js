@@ -5,7 +5,6 @@ import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import {useHistory} from "react-router-dom"
 import {saveUser} from "../../api/usersApi"
-import {useTranslation} from "react-i18next";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,8 +61,6 @@ const useStyles = makeStyles((theme) => ({
 const Registration = () => {
     const classes = useStyles()
     const history = useHistory()
-    const {t} = useTranslation('userRegistration')
-
 
     const handleOnSubmit = (formValues, formikHelpers) => {
         formikHelpers.setSubmitting(true)
@@ -166,7 +163,6 @@ const Registration = () => {
                                       component="small"/>
                         <Button
                             type="submit"
-                            // fullWidth
                             className={classes.submit}
                             disabled={props.isSubmitting}
                         >
